@@ -29,15 +29,18 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
     private volatile int offset2 = 0;
     private volatile int velocity = 1;
 
-    @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
+
+    @SuppressWarnings("unused")
     public static ComponentUI createUI(JComponent c) {
         c.setBorder(JBUI.Borders.empty().asUIResource());
         return new NyanProgressBarUi();
     }
 
-    private static boolean isEven(int value) {
-        return value % 2 == 0;
+
+    private static boolean isOdd(int value) {
+        return value % 2 != 0;
     }
+
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
@@ -47,18 +50,9 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
     @Override
     protected void installListeners() {
         super.installListeners();
-        progressBar.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentShown(ComponentEvent e) {
-                super.componentShown(e);
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                super.componentHidden(e);
-            }
-        });
+        progressBar.addComponentListener(new ComponentAdapter() { });
     }
+
 
     @Override
     protected void paintIndeterminate(Graphics g2d, JComponent c) {
@@ -80,7 +74,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         g.setColor(new JBColor(Gray._240.withAlpha(50), Gray._128.withAlpha(50)));
         int w = c.getWidth();
         int h = c.getPreferredSize().height;
-        if (!isEven(c.getHeight() - h)) h++;
+        if (isOdd(c.getHeight() - h)) h++;
 
         LinearGradientPaint baseRainbowPaint = new LinearGradientPaint(0, JBUI.scale(2), 0, h - JBUI.scale(6),
                 new float[]{ONE_OVER_SEVEN * 1, ONE_OVER_SEVEN * 2, ONE_OVER_SEVEN * 3, ONE_OVER_SEVEN * 4, ONE_OVER_SEVEN * 5, ONE_OVER_SEVEN * 6, ONE_OVER_SEVEN * 7},
@@ -153,11 +147,11 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 
 //        g.setPaint(baseRainbowPaint);
 
-        Icon scaledIcon = velocity > 0 ? ((ScalableIcon) NyanIcons.CAT_ICON) : ((ScalableIcon) NyanIcons.RCAT_ICON);
+        Icon scaledIcon = velocity > 0 ? ((ScalableIcon) NyanIcon.CAT) : ((ScalableIcon) NyanIcon.RCAT);
 //        if (velocity < 0) {
 //            scaledIcon = new ReflectedIcon(scaledIcon);
 //        }
-        scaledIcon.paintIcon(progressBar, g, offset2 - JBUI.scale(10), -JBUI.scale(6));
+        scaledIcon.paintIcon(progressBar, g, offset2 - JBUI.scale(10), JBUI.scale(0));
 
         g.draw(new RoundRectangle2D.Float(1f, 1f, w - 2f - 1f, h - 2f - 1f, R, R));
         g.translate(0, -(c.getHeight() - h) / 2);
@@ -187,7 +181,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         Insets b = progressBar.getInsets(); // area for border
         int w = progressBar.getWidth();
         int h = progressBar.getPreferredSize().height;
-        if (!isEven(c.getHeight() - h)) h++;
+        if (isOdd(c.getHeight() - h)) h++;
 
         int barRectWidth = w - (b.right + b.left);
         int barRectHeight = h - (b.top + b.bottom);
@@ -221,7 +215,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
                 new float[]{ONE_OVER_SEVEN * 1, ONE_OVER_SEVEN * 2, ONE_OVER_SEVEN * 3, ONE_OVER_SEVEN * 4, ONE_OVER_SEVEN * 5, ONE_OVER_SEVEN * 6, ONE_OVER_SEVEN * 7},
                 new Color[]{Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.cyan, Color.blue, VIOLET}));
 
-        NyanIcons.CAT_ICON.paintIcon(progressBar, g2, amountFull - JBUI.scale(10), -JBUI.scale(6));
+        NyanIcon.CAT.paintIcon(progressBar, g2, amountFull - JBUI.scale(10), JBUI.scale(0));
         g2.fill(new RoundRectangle2D.Float(2f * off, 2f * off, amountFull - JBUI.scale(5f), h - JBUI.scale(5f), JBUI.scale(7f), JBUI.scale(7f)));
         g2.translate(0, -(c.getHeight() - h) / 2);
 
