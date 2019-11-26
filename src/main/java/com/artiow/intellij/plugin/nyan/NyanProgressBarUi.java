@@ -1,3 +1,5 @@
+package com.artiow.intellij.plugin.nyan;
+
 import com.intellij.openapi.ui.GraphicsConfig;
 import com.intellij.openapi.util.ScalableIcon;
 import com.intellij.ui.Gray;
@@ -13,12 +15,19 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.geom.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 
 public class NyanProgressBarUi extends BasicProgressBarUI {
+
     private static final float ONE_OVER_SEVEN = 1f / 7;
     private static final Color VIOLET = new Color(90, 0, 157);
 
+    private volatile int offset = 0;
+    private volatile int offset2 = 0;
+    private volatile int velocity = 1;
 
     @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
     public static ComponentUI createUI(JComponent c) {
@@ -26,10 +35,14 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         return new NyanProgressBarUi();
     }
 
+    private static boolean isEven(int value) {
+        return value % 2 == 0;
+    }
+
     @Override
     public Dimension getPreferredSize(JComponent c) {
         return new Dimension(super.getPreferredSize(c).width, JBUI.scale(20));
-   }
+    }
 
     @Override
     protected void installListeners() {
@@ -47,16 +60,13 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         });
     }
 
-    private volatile int offset = 0;
-    private volatile int offset2 = 0;
-    private volatile int velocity = 1;
     @Override
     protected void paintIndeterminate(Graphics g2d, JComponent c) {
 
         if (!(g2d instanceof Graphics2D)) {
             return;
         }
-        Graphics2D g = (Graphics2D)g2d;
+        Graphics2D g = (Graphics2D) g2d;
 
 
         Insets b = progressBar.getInsets(); // area for border
@@ -79,7 +89,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         g.setPaint(baseRainbowPaint);
 
         if (c.isOpaque()) {
-            g.fillRect(0, (c.getHeight() - h)/2, w, h);
+            g.fillRect(0, (c.getHeight() - h) / 2, w, h);
         }
         g.setColor(new JBColor(Gray._165.withAlpha(50), Gray._88.withAlpha(50)));
         final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
@@ -109,7 +119,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 //
 //            final Area area = new Area(path);
 //            area.intersect(containingRoundRect);
-            g.fill(containingRoundRect);
+        g.fill(containingRoundRect);
 //            x+= getPeriodLength();
 //        }
         g.setPaint(old);
@@ -143,21 +153,20 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 
 //        g.setPaint(baseRainbowPaint);
 
-        Icon scaledIcon = velocity > 0 ? ((ScalableIcon) NyanIcons.CAT_ICON) : ((ScalableIcon) NyanIcons.RCAT_ICON) ;
+        Icon scaledIcon = velocity > 0 ? ((ScalableIcon) NyanIcons.CAT_ICON) : ((ScalableIcon) NyanIcons.RCAT_ICON);
 //        if (velocity < 0) {
 //            scaledIcon = new ReflectedIcon(scaledIcon);
 //        }
         scaledIcon.paintIcon(progressBar, g, offset2 - JBUI.scale(10), -JBUI.scale(6));
 
-        g.draw(new RoundRectangle2D.Float(1f, 1f, w - 2f - 1f, h - 2f -1f, R, R));
+        g.draw(new RoundRectangle2D.Float(1f, 1f, w - 2f - 1f, h - 2f - 1f, R, R));
         g.translate(0, -(c.getHeight() - h) / 2);
 
         // Deal with possible text painting
         if (progressBar.isStringPainted()) {
             if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
                 paintString(g, b.left, b.top, barRectWidth, barRectHeight, boxRect.x, boxRect.width);
-            }
-            else {
+            } else {
                 paintString(g, b.left, b.top, barRectWidth, barRectHeight, boxRect.y, boxRect.height);
             }
         }
@@ -193,7 +202,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         Color background = parent != null ? parent.getBackground() : UIUtil.getPanelBackground();
 
         g.setColor(background);
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
         if (c.isOpaque()) {
             g.fillRect(0, 0, w, h);
         }
@@ -202,19 +211,19 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         final float R2 = JBUI.scale(9f);
         final float off = JBUI.scale(1f);
 
-        g2.translate(0, (c.getHeight() - h)/2);
+        g2.translate(0, (c.getHeight() - h) / 2);
         g2.setColor(progressBar.getForeground());
         g2.fill(new RoundRectangle2D.Float(0, 0, w - off, h - off, R2, R2));
         g2.setColor(background);
-        g2.fill(new RoundRectangle2D.Float(off, off, w - 2f*off - off, h - 2f*off - off, R, R));
+        g2.fill(new RoundRectangle2D.Float(off, off, w - 2f * off - off, h - 2f * off - off, R, R));
 //        g2.setColor(progressBar.getForeground());
         g2.setPaint(new LinearGradientPaint(0, JBUI.scale(2), 0, h - JBUI.scale(6),
                 new float[]{ONE_OVER_SEVEN * 1, ONE_OVER_SEVEN * 2, ONE_OVER_SEVEN * 3, ONE_OVER_SEVEN * 4, ONE_OVER_SEVEN * 5, ONE_OVER_SEVEN * 6, ONE_OVER_SEVEN * 7},
                 new Color[]{Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.cyan, Color.blue, VIOLET}));
 
         NyanIcons.CAT_ICON.paintIcon(progressBar, g2, amountFull - JBUI.scale(10), -JBUI.scale(6));
-        g2.fill(new RoundRectangle2D.Float(2f*off,2f*off, amountFull - JBUI.scale(5f), h - JBUI.scale(5f), JBUI.scale(7f), JBUI.scale(7f)));
-        g2.translate(0, -(c.getHeight() - h)/2);
+        g2.fill(new RoundRectangle2D.Float(2f * off, 2f * off, amountFull - JBUI.scale(5f), h - JBUI.scale(5f), JBUI.scale(7f), JBUI.scale(7f)));
+        g2.translate(0, -(c.getHeight() - h) / 2);
 
         // Deal with possible text painting
         if (progressBar.isStringPainted()) {
@@ -230,7 +239,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
             return;
         }
 
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
         String progressString = progressBar.getString();
         g2.setFont(progressBar.getFont());
         Point renderLocation = getStringPlacement(g2, progressString,
@@ -248,7 +257,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         } else { // VERTICAL
             g2.setColor(getSelectionBackground());
             AffineTransform rotate =
-                    AffineTransform.getRotateInstance(Math.PI/2);
+                    AffineTransform.getRotateInstance(Math.PI / 2);
             g2.setFont(progressBar.getFont().deriveFont(rotate));
             renderLocation = getStringPlacement(g2, progressString,
                     x, y, w, h);
@@ -269,10 +278,6 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 
     private int getPeriodLength() {
         return JBUI.scale(16);
-    }
-
-    private static boolean isEven(int value) {
-        return value % 2 == 0;
     }
 }
 

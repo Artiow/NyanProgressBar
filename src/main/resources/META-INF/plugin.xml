@@ -1,0 +1,20 @@
+<idea-plugin>
+    <id>com.artiow.intellij.plugin.nyan</id>
+    <name>Tiny Nyan Progress Bar</name>
+    <version>1.0</version>
+    <vendor email="namednev.artem@gmail.com">Artem Namednev</vendor>
+
+    <description><![CDATA[
+      Pretty tiny progress bars with Nyan Cat for IJ based IDEs.
+    ]]></description>
+
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij"/>
+
+    <application-components>
+        <component>
+            <implementation-class>com.artiow.intellij.plugin.nyan.NyanApplicationComponent</implementation-class>
+        </component>
+    </application-components>
+</idea-plugin>

@@ -1,8 +1,11 @@
+package com.artiow.intellij.plugin.nyan;
+
 import com.intellij.ide.ui.LafManager;
 
 import javax.swing.*;
 
 public class NyanApplicationComponent {
+
     public NyanApplicationComponent() {
         LafManager.getInstance().addLafManagerListener(__ -> updateProgressBarUi());
         updateProgressBarUi();
