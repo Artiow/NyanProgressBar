@@ -1,13 +1,16 @@
 package com.artiow.intellij.plugin.nyan;
 
 import com.intellij.openapi.util.IconLoader;
-
-import javax.swing.*;
+import com.intellij.openapi.util.ScalableIcon;
 
 public final class NyanIcon {
 
-    public static final Icon CAT = IconLoader.getIcon("/cat.png");
-    public static final Icon RCAT = IconLoader.getIcon("/rcat.png");
+    public static final ScalableIcon CAT = load("/cat.png");
+    public static final ScalableIcon RCAT = load("/rcat.png");
+
+    private static ScalableIcon load(String path) {
+        return (ScalableIcon) IconLoader.getIcon(path);
+    }
 
     private NyanIcon() { }
 }

@@ -11,7 +11,7 @@ import static java.awt.Color.*;
 public final class NyanRainbow {
 
     public static final Color[] RAINBOW_COLORS = new Color[]{RED, ORANGE, YELLOW, GREEN, CYAN, BLUE};
-    public static final float[] RAINBOW_FRACTIONS = new float[]{1f / 6, 2f / 6, 3f / 6, 4f / 6, 5f / 6, 1f};
+    public static final float[] RAINBOW_FRACTIONS = new float[]{0f, 1f / 4f, 21f / 48f, 27f / 48f, 3f / 4f, 1f};
 
     private NyanRainbow() { }
 
