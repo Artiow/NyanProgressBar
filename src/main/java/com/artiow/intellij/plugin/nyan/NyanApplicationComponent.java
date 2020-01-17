@@ -13,6 +13,6 @@ public class NyanApplicationComponent {
 
     private void updateProgressBarUi() {
         UIManager.put("ProgressBarUI", NyanProgressBarUi.class.getName());
-        UIManager.getDefaults().put(NyanProgressBarUi.class.getName(), NyanProgressBarUi.class);
+        UIManager.put(NyanProgressBarUi.class.getName(), NyanProgressBarUi.class);
     }
 }

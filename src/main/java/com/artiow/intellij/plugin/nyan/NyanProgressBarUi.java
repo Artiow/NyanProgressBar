@@ -1,5 +1,6 @@
 package com.artiow.intellij.plugin.nyan;
 
+import com.artiow.intellij.plugin.nyan.basic.SliderProgressBarUI;
 import com.intellij.openapi.ui.GraphicsConfig;
 import com.intellij.openapi.util.ScalableIcon;
 import com.intellij.ui.Gray;
@@ -12,15 +13,13 @@ import sun.swing.SwingUtilities2;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
-public class NyanProgressBarUi extends BasicProgressBarUI {
+public class NyanProgressBarUi extends SliderProgressBarUI {
 
     private volatile int offset = 0;
     private volatile int offset2 = 0;
@@ -40,26 +39,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 
 
     @Override
-    public Dimension getPreferredSize(JComponent c) {
-        return new Dimension(super.getPreferredSize(c).width, JBUIScale.scale(20));
-    }
-
-    @Override
-    protected void installListeners() {
-        super.installListeners();
-        progressBar.addComponentListener(new ComponentAdapter() { });
-    }
-
-
-    @Override
-    protected void paintIndeterminate(Graphics g2d, JComponent c) {
-
-        if (!(g2d instanceof Graphics2D)) {
-            return;
-        }
-        Graphics2D g = (Graphics2D) g2d;
-
-
+    protected void paintIndeterminate(Graphics2D g, JComponent c) {
         Insets b = progressBar.getInsets(); // area for border
         int barRectWidth = progressBar.getWidth() - (b.right + b.left);
         int barRectHeight = progressBar.getHeight() - (b.top + b.bottom);
@@ -73,7 +53,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         int h = c.getPreferredSize().height;
         if (isOdd(c.getHeight() - h)) h++;
 
-        LinearGradientPaint baseRainbowPaint = NyanRainbow.getGradient(0, JBUIScale.scale(2), 0, h - JBUIScale.scale(6));
+        LinearGradientPaint baseRainbowPaint = NyanRainbow.newGradient(0, JBUIScale.scale(2), 0, h - JBUIScale.scale(6));
 
         g.setPaint(baseRainbowPaint);
 
@@ -160,15 +140,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
     }
 
     @Override
-    protected void paintDeterminate(Graphics g, JComponent c) {
-        if (!(g instanceof Graphics2D)) {
-            return;
-        }
-
-        if (progressBar.getOrientation() != SwingConstants.HORIZONTAL || !c.getComponentOrientation().isLeftToRight()) {
-            super.paintDeterminate(g, c);
-            return;
-        }
+    protected void paintDeterminate(Graphics2D g, JComponent c) {
         final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
         Insets b = progressBar.getInsets(); // area for border
         int w = progressBar.getWidth();
@@ -202,7 +174,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         g2.fill(new RoundRectangle2D.Float(0, 0, w - off, h - off, R2, R2));
         g2.setColor(background);
         g2.fill(new RoundRectangle2D.Float(off, off, w - 2f * off - off, h - 2f * off - off, R, R));
-        g2.setPaint(NyanRainbow.getGradient(0, JBUIScale.scale(2), 0, h - JBUIScale.scale(6)));
+        g2.setPaint(NyanRainbow.newGradient(0, JBUIScale.scale(2), 0, h - JBUIScale.scale(6)));
         g2.fill(new RoundRectangle2D.Float(2f * off, 2f * off, amountFull - JBUIScale.scale(5f), h - JBUIScale.scale(5f), JBUIScale.scale(7f), JBUIScale.scale(7f)));
         NyanIcon.CAT.paintIcon(progressBar, g2, amountFull - JBUIScale.scale(10), JBUIScale.scale(0));
         g2.translate(0, -(c.getHeight() - h) / 2);
@@ -213,8 +185,10 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
                     barRectWidth, barRectHeight,
                     amountFull, b);
         }
+
         config.restore();
     }
+
 
     private void paintString(Graphics g, int x, int y, int w, int h, int fillStart, int amountFull) {
         if (!(g instanceof Graphics2D)) {
@@ -251,10 +225,5 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
                     renderLocation.x, renderLocation.y);
         }
         g2.setClip(oldClip);
-    }
-
-    @Override
-    protected int getBoxLength(int availableLength, int otherDimension) {
-        return availableLength;
     }
 }

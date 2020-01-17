@@ -15,7 +15,7 @@ public final class NyanRainbow {
 
     private NyanRainbow() { }
 
-    public static LinearGradientPaint getGradient(float startX, float startY, float endX, float endY) {
+    public static LinearGradientPaint newGradient(float startX, float startY, float endX, float endY) {
         return new LinearGradientPaint(startX, startY, endX, endY, RAINBOW_FRACTIONS, RAINBOW_COLORS);
     }
 }
