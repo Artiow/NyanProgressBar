@@ -1,13 +1,16 @@
 package com.artiow.intellij.plugin.nyan.basic;
 
 import com.intellij.ui.JBColor;
+import com.intellij.util.ui.GraphicsUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
+import static com.intellij.openapi.util.NullUtils.notNull;
 import static java.lang.Math.ceil;
 import static java.lang.Math.max;
 import static javax.swing.SwingConstants.HORIZONTAL;
@@ -22,7 +25,10 @@ public abstract class SliderProgressBarUI extends BasicProgressBarUI {
         if (isNotSupported(g, c)) {
             super.paintIndeterminate(g, c);
         } else {
+            val config = GraphicsUtil.setupAAPainting(g);
             paintIndeterminate((Graphics2D) g, c);
+            paintString((Graphics2D) g);
+            config.restore();
         }
     }
 
@@ -34,7 +40,10 @@ public abstract class SliderProgressBarUI extends BasicProgressBarUI {
         if (isNotSupported(g, c)) {
             super.paintDeterminate(g, c);
         } else {
+            val config = GraphicsUtil.setupAAPainting(g);
             paintDeterminate((Graphics2D) g, c);
+            paintString((Graphics2D) g);
+            config.restore();
         }
     }
 
@@ -50,8 +59,8 @@ public abstract class SliderProgressBarUI extends BasicProgressBarUI {
         int sliderBodyPadding = slider.border + slider.padding;
         int sliderBodyX = slider.x + sliderBodyPadding + sliderBody.leftOffset;
         int sliderBodyY = slider.x + sliderBodyPadding;
-        int sliderBodyW = slider.w - 2 * sliderBodyPadding - sliderBody.rightOffset;
-        int sliderBodyH = slider.h - 2 * sliderBodyPadding;
+        int sliderBodyW = max(slider.w - 2 * sliderBodyPadding - sliderBody.rightOffset, 0);
+        int sliderBodyH = max(slider.h - 2 * sliderBodyPadding, 0);
         float sliderBodyRadius = max(slider.radius - sliderBodyPadding, 0);
         paintSliderBackground(g, slider.x, slider.y, slider.w, slider.h, slider.border, slider.radius);
         paintSliderBody(g, sliderBodyX, sliderBodyY, sliderBodyW, sliderBodyH, sliderBodyRadius);
@@ -74,8 +83,21 @@ public abstract class SliderProgressBarUI extends BasicProgressBarUI {
     }
 
     private void paintSliderHead(Graphics2D g, Icon icon, int x, int y, int w, int h, float position) {
-        int positionShift = (int) ceil((w - icon.getIconWidth()) * position);
-        icon.paintIcon(progressBar, g, x + positionShift, y);
+        if (notNull(icon)) {
+            int positionShift = (int) ceil((w - icon.getIconWidth()) * position);
+            icon.paintIcon(progressBar, g, x + positionShift, y);
+        }
+    }
+
+
+    protected void paintString(Graphics2D g) {
+        if (progressBar.isStringPainted()) {
+            paintString(g, 0, 0, progressBar.getWidth(), progressBar.getHeight(), getAmountFull(), progressBar.getInsets());
+        }
+    }
+
+    protected int getAmountFull() {
+        return getAmountFull(progressBar.getInsets(), progressBar.getWidth(), progressBar.getHeight());
     }
 
 
@@ -104,7 +126,7 @@ public abstract class SliderProgressBarUI extends BasicProgressBarUI {
     }
 
     @RequiredArgsConstructor
-    private static class SliderHeadSettings {
+    public static class SliderHeadSettings {
 
         private final Icon icon;
         private final float position;
