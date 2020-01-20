@@ -1,6 +1,5 @@
 package com.artiow.intellij.plugin.nyan.basic;
 
-import com.intellij.ui.JBColor;
 import com.intellij.util.ui.GraphicsUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -102,7 +101,7 @@ public abstract class SliderProgressBarUI extends BasicProgressBarUI {
 
 
     protected Paint getSliderBodyPaint(Graphics2D g, int x, int y, int w, int h, float radius) {
-        return JBColor.GREEN;
+        return progressBar.getForeground();
     }
 
 

@@ -30,7 +30,7 @@ public class NyanProgressBarUi extends SliderProgressBarUI {
         int height = progressBar.getHeight();
         float position = (float) progressBar.getPercentComplete();
         val icon = NyanIcon.CAT.scaleToHeight(height);
-        val sliderBodySettings = new SliderBodySettings(0, round((width - icon.getIconWidth() / 2f) * (1f - position)));
+        val sliderBodySettings = new SliderBodySettings(0, round((width - icon.getIconWidth()) * (1f - position) + (icon.getIconWidth() / 2f)));
         val sliderHeadSettings = new SliderHeadSettings(icon, position);
         paintSlider(g, sliderBodySettings, sliderHeadSettings);
     }

@@ -11,7 +11,7 @@ import java.awt.*;
  */
 final class AdaptiveIconImpl implements AdaptiveIcon {
 
-    public ScalableIcon content;
+    public final ScalableIcon content;
 
 
     AdaptiveIconImpl(ScalableIcon content) {

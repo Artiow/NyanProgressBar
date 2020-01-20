@@ -18,12 +18,10 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
 }
 
-// See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version '2019.2.4'
 }
+
 patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+    changeNotes """"""
 }
