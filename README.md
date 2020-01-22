@@ -9,6 +9,5 @@ Pretty progress bars with Nyan Cat for intellij-based IDEs based on [batya239/Ny
 - gradle build support.
 
 #### Download:
-- [nyan-1.0.zip](https://github.com/Artiow/nyan-progress-bar/releases/download/1.0/nyan-1.0.zip)
-- [nyan-1.0.jar](https://github.com/Artiow/nyan-progress-bar/releases/download/1.0/nyan-1.0.jar)
-
+- IDEA 2019.3:
+  - nyan-1.1 ([zip](https://github.com/Artiow/nyan-progress-bar/releases/download/1.1/nyan-1.1.zip), [jar](https://github.com/Artiow/nyan-progress-bar/releases/download/1.1/nyan-1.1.jar))
