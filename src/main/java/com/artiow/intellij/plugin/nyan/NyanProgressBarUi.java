@@ -2,7 +2,6 @@ package com.artiow.intellij.plugin.nyan;
 
 import com.artiow.intellij.plugin.nyan.basic.SliderProgressBarUI;
 import com.intellij.util.ui.JBUI;
-import lombok.val;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -29,9 +28,9 @@ public class NyanProgressBarUi extends SliderProgressBarUI {
         int width = progressBar.getWidth();
         int height = progressBar.getHeight();
         float position = (float) progressBar.getPercentComplete();
-        val icon = NyanIcon.CAT.scaleToHeight(height);
-        val sliderBodySettings = new SliderBodySettings(0, round((width - icon.getIconWidth()) * (1f - position) + (icon.getIconWidth() / 2f)));
-        val sliderHeadSettings = new SliderHeadSettings(icon, position);
+        Icon icon = NyanIcon.CAT.scaleToHeight(height);
+        SliderBodySettings sliderBodySettings = new SliderBodySettings(0, round((width - icon.getIconWidth()) * (1f - position) + (icon.getIconWidth() / 2f)));
+        SliderHeadSettings sliderHeadSettings = new SliderHeadSettings(icon, position);
         paintSlider(g, sliderBodySettings, sliderHeadSettings);
     }
 

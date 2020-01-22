@@ -1,8 +1,7 @@
 package com.artiow.intellij.plugin.nyan.basic;
 
+import com.intellij.openapi.ui.GraphicsConfig;
 import com.intellij.util.ui.GraphicsUtil;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicProgressBarUI;
@@ -24,7 +23,7 @@ public abstract class SliderProgressBarUI extends BasicProgressBarUI {
         if (isNotSupported(g, c)) {
             super.paintIndeterminate(g, c);
         } else {
-            val config = GraphicsUtil.setupAAPainting(g);
+            GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
             paintIndeterminate((Graphics2D) g, c);
             paintString((Graphics2D) g);
             config.restore();
@@ -39,7 +38,7 @@ public abstract class SliderProgressBarUI extends BasicProgressBarUI {
         if (isNotSupported(g, c)) {
             super.paintDeterminate(g, c);
         } else {
-            val config = GraphicsUtil.setupAAPainting(g);
+            GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
             paintDeterminate((Graphics2D) g, c);
             paintString((Graphics2D) g);
             config.restore();
@@ -105,7 +104,6 @@ public abstract class SliderProgressBarUI extends BasicProgressBarUI {
     }
 
 
-    @RequiredArgsConstructor
     public static class SliderSettings {
 
         private final int x;
@@ -115,19 +113,37 @@ public abstract class SliderProgressBarUI extends BasicProgressBarUI {
         private final int border;
         private final int padding;
         private final float radius;
+
+        public SliderSettings(int x, int y, int w, int h, int border, int padding, float radius) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.border = border;
+            this.padding = padding;
+            this.radius = radius;
+        }
     }
 
-    @RequiredArgsConstructor
     public static class SliderBodySettings {
 
         private final int leftOffset;
         private final int rightOffset;
+
+        public SliderBodySettings(int leftOffset, int rightOffset) {
+            this.leftOffset = leftOffset;
+            this.rightOffset = rightOffset;
+        }
     }
 
-    @RequiredArgsConstructor
     public static class SliderHeadSettings {
 
         private final Icon icon;
         private final float position;
+
+        public SliderHeadSettings(Icon icon, float position) {
+            this.icon = icon;
+            this.position = position;
+        }
     }
 }

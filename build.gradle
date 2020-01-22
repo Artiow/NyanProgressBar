@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.artiow.intellij.plugin'
-version '1.0'
+version '1.1'
 
 sourceCompatibility = 1.8
 
@@ -14,14 +14,13 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compileOnly 'org.projectlombok:lombok:1.18.10'
-    annotationProcessor 'org.projectlombok:lombok:1.18.10'
 }
 
 intellij {
-    version '2019.2.4'
+    version '2019.3'
 }
 
 patchPluginXml {
-    changeNotes """"""
+    changeNotes """
+    Update to version <em>2019.3</em>"""
 }
