@@ -5,7 +5,7 @@
     <vendor email="namednev.artem@gmail.com">Artem Namednev</vendor>
 
     <description><![CDATA[
-      Pretty progress bars with Nyan Cat for IJ based IDEs.
+      Pretty progress bars with Nyan Cat for intellij-based IDEs.
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
