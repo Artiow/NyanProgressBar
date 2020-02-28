@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.artiow.intellij.plugin.nyan</id>
     <name>Nyan Progress Bar</name>
-    <version>1.0</version>
+    <version>1.2</version>
     <vendor email="namednev.artem@gmail.com">Artem Namednev</vendor>
 
     <description><![CDATA[

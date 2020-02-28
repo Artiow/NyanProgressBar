@@ -4,9 +4,7 @@ plugins {
 }
 
 group 'com.artiow.intellij.plugin'
-version '1.1'
-
-sourceCompatibility = 1.8
+version '1.2-' + (project.hasProperty('ideaVersion') ? ideaVersion : 'LATEST-EAP-SNAPSHOT')
 
 repositories {
     mavenCentral()
@@ -17,10 +15,5 @@ dependencies {
 }
 
 intellij {
-    version '2019.3'
-}
-
-patchPluginXml {
-    changeNotes """
-    Update to version <em>2019.3</em>"""
+    version(project.hasProperty('ideaVersion') ? ideaVersion : 'LATEST-EAP-SNAPSHOT')
 }
