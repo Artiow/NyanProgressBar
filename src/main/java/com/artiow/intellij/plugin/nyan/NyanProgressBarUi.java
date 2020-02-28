@@ -28,7 +28,7 @@ public class NyanProgressBarUi extends SliderProgressBarUI {
         int width = progressBar.getWidth();
         int height = progressBar.getHeight();
         float position = (float) progressBar.getPercentComplete();
-        Icon icon = NyanIcon.CAT.scaleToHeight(height);
+        Icon icon = NyanIcon.INSTANCE.scaleToHeight(height);
         SliderBodySettings sliderBodySettings = new SliderBodySettings(0, round((width - icon.getIconWidth()) * (1f - position) + (icon.getIconWidth() / 2f)));
         SliderHeadSettings sliderHeadSettings = new SliderHeadSettings(icon, position);
         paintSlider(g, sliderBodySettings, sliderHeadSettings);

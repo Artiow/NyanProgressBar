@@ -1,5 +1,6 @@
 package com.artiow.intellij.plugin.nyan.util;
 
+import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.util.ScalableIcon;
 
 import javax.swing.*;
@@ -9,8 +10,8 @@ import javax.swing.*;
  */
 public interface AdaptiveIcon extends ScalableIcon {
 
-    static AdaptiveIcon from(ScalableIcon icon) {
-        return new AdaptiveIconImpl(icon);
+    static AdaptiveIcon getIcon(String path) {
+        return new AdaptiveIconImpl((ScalableIcon) IconLoader.getIcon(path));
     }
 
 
