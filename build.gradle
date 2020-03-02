@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.artiow.intellij.plugin'
-version '1.2-' + (project.hasProperty('ideaVersion') ? ideaVersion : 'LATEST-EAP-SNAPSHOT')
+version '1.3-' + (project.hasProperty('ideaVersion') ? ideaVersion : 'LATEST-EAP-SNAPSHOT')
 
 repositories {
     mavenCentral()
