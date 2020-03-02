@@ -2,11 +2,7 @@ package com.artiow.intellij.plugin.nyan;
 
 import com.artiow.intellij.plugin.nyan.util.AdaptiveIcon;
 
-public final class NyanIcon {
+public interface NyanIcon {
 
-    public static final AdaptiveIcon INSTANCE = AdaptiveIcon.getIcon("/cat.png");
-
-    private NyanIcon() {
-
-    }
+    AdaptiveIcon INSTANCE = AdaptiveIcon.getIcon("/cat.png");
 }
