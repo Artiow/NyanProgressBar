@@ -4,5 +4,5 @@ import com.artiow.intellij.plugin.nyan.util.AdaptiveIcon;
 
 public interface NyanIcon {
 
-    AdaptiveIcon INSTANCE = AdaptiveIcon.getIcon("/cat.png");
+    AdaptiveIcon INSTANCE = AdaptiveIcon.getIcon("/cat.svg");
 }

@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" id="nyancat" version="1.1" width="42" height="42" viewBox="0, 0, 42, 42">
-    <g id="rainbow">
-        <path fill="#6633ff" id="violet"
-              d="m 4,24 v 1 H 0 v 1 1 h 4 v -1 h 4 v 1 h 4 v -1 h 4 v -1 -1 h -4 v 1 H 8 v -1 z"/>
-        <path fill="#0099ff" id="blue"
-              d="m 4,22 v 1 H 0 v 1 1 h 4 v -1 h 4 v 1 h 4 v -1 h 4 v -1 -1 h -4 v 1 H 8 v -1 z"/>
-        <path fill="#33ff00" id="green"
-              d="m 4,20 v 1 H 0 v 1 1 h 4 v -1 h 4 v 1 h 4 v -1 h 4 v -1 -1 h -4 v 1 H 8 v -1 z"/>
-        <path fill="#ffff00" id="yellow"
-              d="m 4,18 v 1 H 0 v 1 1 h 4 v -1 h 4 v 1 h 4 v -1 h 4 v -1 -1 h -4 v 1 H 8 v -1 z"/>
-        <path fill="#ff9900" id="orange"
-              d="m 4,16 v 1 H 0 v 1 1 h 4 v -1 h 4 v 1 h 4 v -1 h 4 v -1 -1 h -4 v 1 H 8 v -1 z"/>
-        <path fill="#ff0000" id="red"
-              d="m 4,14 v 1 H 0 v 1 1 h 4 v -1 h 4 v 1 h 4 v -1 h 4 v -1 -1 h -4 v 1 H 8 v -1 z"/>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" id="nyancat" version="1.1" width="32" height="20" viewBox="10, 11, 32, 20">
     <g id="cat">
         <path fill="#000000" id="shadow"
               d="m 18,11 v 1 h -1 v 1 h -1 v 1 1 1 1 1 1 1 h -1 v -1 h -1 v -1 h -4 v 1 1 1 h 1 v 1 h 1 v 1 h 1 v 1 h 2 v 1 h 1 v 1 1 h -1 v 1 h -1 v 1 1 1 h 4 v -1 h 1 v -1 h 1 v 1 1 h 3 v -1 h 1 v -1 h 5 v 1 h 1 v 1 h 3 v -1 -1 h 1 v 1 h 1 v 1 h 2 v -1 h 1 v -1 h 1 v -1 h 1 v -1 h 1 v -1 h 1 v -1 -1 -1 -1 -1 h -1 v -1 -1 -1 -1 h -1 v -1 h -2 v 1 h -1 v -1 -1 -1 -1 h -1 v -1 h -1 v -1 z"/>
